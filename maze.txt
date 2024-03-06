@@ -1,0 +1,130 @@
+
+	' Width and height of the maze
+	w = 8
+	h = 8
+
+	' Various constants related to the dimensions of the maze
+	h1 = h * 2 - 2
+	h2 = h1 - 1
+	w1 = w * 2 - 2
+	w2 = w1 - 1
+
+	' Arrays for the maze and the stack
+	' Set to a(w * 2 - 2, h * 2 - 2), x(h * w), y(h * w)
+	dim a(14, 14), x(64), y(64)
+
+	' Initialize the maze array
+	' Walls = 1, visited cells = 2
+	for i = 1 to w2 step 2
+		for j = 0 to h1 step 2
+			a(i, j) = 1
+		next j
+	next i
+	for i = 0 to w1 step 2
+		for j = 1 to h2 step 2
+			a(i, j) = 1
+		next j
+	next i
+
+	' Visit the first cell of the maze
+	a(x,y) = 2
+
+	' Generate the maze
+	random
+	for n = 2 to h * w
+		gosub 1100	' Get the location of the next maze cell to visit
+		a(x1, y1) = 0	' Remove the wall
+		a(x2, y2) = 2	' Mark that cell as visited
+		x = x2		' Move to that cell
+		y = y2
+		s = s + 1	' Push that location onto the stack
+		x(s) = x
+		y(s) = y
+	next n
+
+	' Display the maze
+	gosub 1200
+	stop
+
+	' Generate a random direction to advance through the maze
+1000	on int(4 * rnd(0) + 1) goto 1005, 1010, 1015, 1020
+1005	if y = 0 then 1000
+	x1 = x
+	y1 = y - 1
+	x2 = x
+	y2 = y - 2
+	return
+1010	if y = h1 then 1000
+	x1 = x
+	y1 = y + 1
+	x2 = x
+	y2 = y + 2
+	return
+1015	if x = 0 then 1000
+	x1 = x - 1
+	y1 = y
+	x2 = x - 2
+	y2 = y
+	return
+1020	if x = w1 then 1000
+	x1 = x + 1
+	y1 = y
+	x2 = x + 2
+	y2 = y
+	return
+
+	' Advance through the maze
+1100	gosub 1300		' Check if current location is at a dead end
+	if f > 0 then 1105
+	s = s - 1		' If so, pop previous location off the stack...
+	x = x(s)
+	y = y(s)
+	goto 1100		' ...and keep trying
+1105	gosub 1000
+	if a(x1, y1) + a(x2, y2) <> 1 then 1105 ' New location needs to be unvisited and beyond a wall
+	return
+
+	' Display maze
+1200	gosub 1400
+	for i = 0 to h1 step2
+		print "!";
+		for j = 1 to w2 step 2
+1205			print "   "; chr$(a(j, i) + 32);
+		next j
+1210		print"   !"
+		if i = h1 then 1220
+		print "+";
+		for j = 0 to w1 step 2
+1215			c = a(j, i + 1) * 13 + 32
+			print chr$(c); chr$(c); chr$(c); "+";
+		next j
+		print
+1220	next i
+	gosub 1400
+	return
+
+	' Check for dead end
+1300	f = 0
+	if x = 0 then 1305
+	if a(x - 1, y) + a(x - 2, y) <> 1 then 1305
+	f = 1
+1305	if x= w1 then 1310
+	if a(x + 1, y) + a(x + 2, y) <> 1 then 1310
+	f = 1
+1310	if y = 0 then 1315
+	if a(x, y - 1) + a(x, y - 2) <> 1 then 1315
+	f = 1
+1315	if y = h1 then 1320
+	if a(x, y + 1) + a(x, y + 2) <> 1 then 1320
+	f = 1
+1320	return
+
+	' Display the top and bottom walls of the maze
+1400	print "+";
+	for i = 1 to w
+		print "---+";
+	next i
+	print
+	return
+
+	end

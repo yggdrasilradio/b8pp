@@ -1,0 +1,82 @@
+
+	dim a(4), g(4)
+
+	' Intro
+	print "GUESS MY FOUR-DIGIT RANDOM NUMBER."
+	print "I WILL GIVE YOU HINTS:"
+	print "* BULLS: # DIGITS IN RIGHT PLACE."
+	print "* COWS: # DIGITS IN WRONG PLACE."
+	print
+
+	' Pick random number
+	randomize
+	a(1) = int(9 * rnd(0)) + 1
+5	a(2) = int(9 * rnd(0)) + 1
+	if a(2) = a(1) then 5
+6	a(3) = int(9 * rnd(0)) + 1
+	if a(3) = a(1) then 6
+	if a(3) = a(2) then 6
+7	a(4) = int(9 * rnd(0)) + 1
+	if a(4) = a(1) then 7
+	if a(4) = a(2) then 7
+	if a(4) = a(3) then 7
+
+	' Turn counter
+	t = 0
+
+	' Get guess
+10	t = t + 1
+	print "YOUR GUESS";
+	input n
+
+	'Give up?
+	if n = 0 then 80
+
+	' Pick it apart
+	g(1) = int(n / 1000)
+	n = n - (1000 * g(1))
+	g(2) = int(n / 100)
+	n = n - (100 * g(2))
+	g(3) = int(n / 10)
+	n = n - (10 * g(3))
+	g(4) = n
+
+	' Count up the bulls and cows
+	b = 0
+	c = 0
+	for i = 1 to 4
+
+		' Check for bulls
+		if g(i) = a(i) then 60
+
+		' Check for cows
+		for j = 1 to 4
+			if i = j then 50
+			if g(i) <> a(j) then 50
+			c = c + 1
+			goto 70
+50		next j
+
+		' No cows
+		goto 70
+
+		' Found a bull!
+60		b = b + 1
+
+70	next i
+
+	' Display the bulls and cows
+	print b; "BULLS,"; c; "COWS"
+
+	' Keep going if the player hasn't won yet
+	if b < 4 then 10
+
+	' 4 BULLS means they won!
+	print
+	print "YOU GOT IT IN"; t; "TURNS!"
+	stop
+
+	' Player gave up
+80	print a(1); a(2); a(3); a(4)
+
+	end

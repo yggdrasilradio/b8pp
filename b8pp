@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+
+# PREPROCESSOR FOR TSS8 BASIC8
+
+LIMIT = 70
+
+import sys
+import re
+
+def minify(text):
+    arr = text.strip().split('"')
+    for i, item in enumerate(arr):
+        if not i % 2:
+            # not inside quotes
+            s = item.upper()                         # upper case
+            s = re.sub(r'\s+', '', s)                # strip whitespace
+            arr[i] = s
+            if "'" in arr[i]:
+                # remove ' comments
+                j = i + 1
+                del arr[j:]
+                arr[i] = arr[i].split("'")[0].strip()
+            if re.match(r'^REM.+$', arr[i]):
+                # remove REM comments
+                j = i + 1
+                del arr[j:]
+                arr[i] = ''
+    r = '"'.join(arr)
+    return r
+
+# read BASIC file
+linelist = sys.stdin.read().split('\n')
+
+# process BASIC lines
+lines = ""
+linenum = 0
+data = ""
+
+for i, line in enumerate(linelist):
+
+    line = minify(line)
+
+    # Get rid of END for now; we'll add it ourselves later
+    if line == 'END':
+        linelist[i] = ''
+
+    # Collect all the data in DATA statements, if any
+    if line.startswith("DATA"):
+        data = data + ',' + minify(line[4:])
+        linelist[i] = ''
+
+# If there was any DATA, add it to the list at the end
+if len(data) > 0:
+    data = data[1:]
+    arr = data.split(',')
+    data = ""
+    for i, item in enumerate(arr):
+        data = data + ',' + item
+        if len(data) > LIMIT:
+            linelist.append('DATA' + data[1:])
+            data = ''
+    if len(data) > 0:
+        linelist.append('DATA' + data[1:])
+
+# Add an END at the end of the list
+linelist.append('end')
+
+# Now we're ready to generate our BASIC program
+for i, line in enumerate(linelist):
+
+    line = minify(line)
+    if len(line) > 0:
+        if line[0].isdigit():
+            # line with line number
+            linenum = int(re.findall(r'^\D*(\d+)', line)[0])
+            if len(lines) > 0:
+                print(lines)
+            lines = line
+        else:
+            # line without line number
+            if len(lines) == 0:
+                # generate line number
+                linenum = linenum + 1
+                lines = str(linenum) + line
+            else:
+                # concatenate line
+                if len(lines) > LIMIT:
+                    print(lines)
+                    linenum = linenum + 1
+                    lines = str(linenum) + line
+                else:
+                    lines = lines + "\\" + line
+
+# Finish up
+if len(lines) > 0:
+    print(lines)
