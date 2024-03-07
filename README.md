@@ -25,5 +25,5 @@ the corresponding programs after preprocessing:
 
 Example usage: `b8pp < guess.txt > guess.bas`
 
-To be able to paste BASIC code into the SIMH simulator for the PDP8, try putting `set console speed=2400`
+To be able to paste BASIC code into the SIMH simulator for TSS8 on the PDP8, try putting `set console speed=2400`
 in the file `/opt/pidp8i/share/boot/2.script`
