@@ -49,6 +49,10 @@ for i, line in enumerate(linelist):
         data = data + ',' + minify(line[4:])
         linelist[i] = ''
 
+    # Optimize 'randomize' statement
+    if line == 'RANDOMIZE':
+        linelist[i] = 'RANDOM'
+
 # If there was any DATA, add it to the list at the end
 if len(data) > 0:
     data = data[1:]
