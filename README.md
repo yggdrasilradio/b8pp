@@ -14,7 +14,7 @@ for use on a PDP8.  It will:
 * assign missing line numbers,
 * concatenate lines,
 * consolidate DATA statements,
-* and remove extraneous spaces.
+* and remove extraneous whitespace.
 
 I've included three demo programs; the .txt files are the original source and the .bas files are
 the corresponding programs after preprocessing:
