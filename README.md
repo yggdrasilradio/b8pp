@@ -16,11 +16,15 @@ for use on a PDP8.  It will:
 * consolidate DATA statements,
 * and remove extraneous whitespace.
 
+Don't let the modern look of the source before processing fool you: this is still the rather primitive
+BASIC8 we know and love from the 80s: you can't get away with any IF/THEN/ELSE or the like.  This is a
+preprocessor that merely massages the source; it is not a compiler.
+
 I've included three demo programs; the .txt files are the original source and the .bas files are
 the corresponding programs after preprocessing:
 
 * bulls.txt, bulls.bas -- The "Bulls and Cows" game.
-* guess.txt, guess.bas -- Classic "guess a number" game.
+* guess.txt, guess.bas -- Classic "Guess a number" game.
 * maze.txt, maze.bas -- Generate an 8x8 random maze.
 
 Example usage: `b8pp < guess.txt > guess.bas`
