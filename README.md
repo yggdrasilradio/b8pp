@@ -17,7 +17,7 @@ for use on a PDP8.  It will:
 * and remove extraneous whitespace.
 
 Don't let the modern look of the source before processing fool you: this is still the rather primitive
-BASIC8 we know and love from the 80s: you can't get away with any IF/THEN/ELSE or the like.  This is a
+BASIC8 we know and love from the 60s: you can't get away with any IF/THEN/ELSE or the like.  This is a
 preprocessor that merely massages the source; it is not a compiler.
 
 I've included three demo programs; the .txt files are the original source and the .bas files are
