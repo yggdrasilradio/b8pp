@@ -25,7 +25,8 @@ the corresponding programs after preprocessing:
 
 * bulls.txt, bulls.bas -- The "Bulls and Cows" game.
 * guess.txt, guess.bas -- Classic "Guess a number" game.
-* maze.txt, maze.bas -- Generate an 8x8 random maze.
+* maze.txt, maze.bas -- Generate an 8x8 random maze (TSS8 version).
+* maze2.txt, maze2.bas -- Generate a random maze up to 30x30 (OS8 version).
 
 Example usage: `b8pp < guess.txt > guess.bas`
 
