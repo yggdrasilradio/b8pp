@@ -8,7 +8,7 @@
 20	print "HEIGHT OF MAZE (MAX 30)";
 	input h
 	if h < 31 then 30
-	print "TOO WIDE."
+	print "TOO HIGH."
 	goto 20
 30	print
 

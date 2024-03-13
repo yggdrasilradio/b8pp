@@ -1,12 +1,12 @@
 
-B8PP -- BASIC8 preprocessor for PDP8 TSS8
+B8PP -- BASIC8 preprocessor for PDP8 TSS8 or OS8
 ==========
 
 ![](images/demo1.jpg)
 
 ![](images/demo2.jpg)
 
-This utility will take BASIC8 source for the PDP8 TSS8 OS in a somewhat modern format and prepare it 
+This utility will take BASIC8 source for the PDP8 TSS8 or OS8 OS in a somewhat modern format and prepare it 
 for use on a PDP8.  It will:
 
 * convert the source to upper case,
@@ -23,12 +23,12 @@ preprocessor that merely massages the source; it is not a compiler.
 I've included three demo programs; the .txt files are the original source and the .bas files are
 the corresponding programs after preprocessing:
 
-* bulls.txt, bulls.bas -- The "Bulls and Cows" game.
-* guess.txt, guess.bas -- Classic "Guess a number" game.
+* bulls.txt, bulls.bas -- The "Bulls and Cows" game (TSS8 version).
+* guess.txt, guess.bas -- Classic "Guess a number" game (TSS8 version).
 * maze.txt, maze.bas -- Generate an 8x8 random maze (TSS8 version).
 * maze2.txt, maze2.bas -- Generate a random maze up to 30x30 (OS8 version).
 
 Example usage: `b8pp < guess.txt > guess.bas`
 
-To be able to paste BASIC code into the SIMH simulator for TSS8 on the PDP8, try putting `set console speed=2400`
+To be able to paste BASIC code into the SIMH simulator, try putting `set console speed=2400`
 in the file `/opt/pidp8i/share/boot/2.script`
