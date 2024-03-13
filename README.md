@@ -24,7 +24,9 @@ I've included three demo programs; the .txt files are the original source and th
 the corresponding programs after preprocessing:
 
 * bulls.txt, bulls.bas -- The "Bulls and Cows" game (TSS8 version).
+* bulls2.txt, bulls2.bas -- The "Bulls and Cows" game (OS8 version).
 * guess.txt, guess.bas -- Classic "Guess a number" game (TSS8 version).
+* guess2.txt, guess2.bas -- Classic "Guess a number" game (OS8 version).
 * maze.txt, maze.bas -- Generate an 8x8 random maze (TSS8 version).
 * maze2.txt, maze2.bas -- Generate a random maze up to 30x30 (OS8 version).
 

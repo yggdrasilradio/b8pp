@@ -1,0 +1,36 @@
+
+	' Intro
+	print "I'VE THOUGHT OF A NUMBER BETWEEN 1 AND 100."
+	print "CAN YOU GUESS WHAT IT IS?"
+
+	n = 0
+60	n = n + 1
+	print
+	print "YOUR GUESS";
+	input g
+
+	if x > 0 then 70
+
+	' Generate random number
+	randomize
+	x = int(100 * rnd(0)) + 1
+
+70	if g <> x then 130
+
+	' Player wins!
+	print
+	print "YOU GUESSED IT IN"; n; "GUESSES!"
+
+	if n <= 7 then 120
+	print "BUT IT SHOULD HAVE ONLY TAKEN YOU 7 GUESSES."
+
+120	stop
+
+130	if g > x then 160
+	print "TOO LOW."
+	goto 60
+
+160	print "TOO HIGH."
+	goto 60
+
+	end
