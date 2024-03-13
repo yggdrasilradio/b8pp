@@ -89,13 +89,13 @@
 	for i = 0 to h1 step2
 		print "!";
 		for j = 1 to w2 step 2
-1205			print "   "; chr$(a(j, i) + 32);
+			print "   "; chr$(a(j, i) + 32);
 		next j
 1210		print"   !"
 		if i = h1 then 1220
 		print "+";
 		for j = 0 to w1 step 2
-1215			c = a(j, i + 1) * 13 + 32
+			c = a(j, i + 1) * 13 + 32
 			print chr$(c); chr$(c); chr$(c); "+";
 		next j
 		print
