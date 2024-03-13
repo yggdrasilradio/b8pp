@@ -6,7 +6,7 @@ B8PP -- BASIC8 preprocessor for PDP8 TSS8 or OS8
 
 ![](images/demo2.jpg)
 
-This utility will take BASIC8 source for the PDP8 TSS8 or OS8 in a somewhat modern format and prepare it 
+This utility will take BASIC8 source for PDP8 TSS8 or OS8 in a somewhat modern format and prepare it 
 for use on a PDP8.  It will:
 
 * convert the source to upper case,
