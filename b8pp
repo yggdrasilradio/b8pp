@@ -60,7 +60,7 @@ if len(data) > 0:
     data = ""
     for i, item in enumerate(arr):
         data = data + ',' + item
-        if len(data) > LIMIT:
+        if len(data + item) > LIMIT:
             linelist.append('DATA' + data[1:])
             data = ''
     if len(data) > 0:
@@ -88,7 +88,7 @@ for i, line in enumerate(linelist):
                 lines = str(linenum) + line
             else:
                 # concatenate line
-                if len(lines) > LIMIT:
+                if len(lines + line) > LIMIT:
                     print(lines)
                     linenum = linenum + 1
                     lines = str(linenum) + line
