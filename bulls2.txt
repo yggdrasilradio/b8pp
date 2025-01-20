@@ -3,6 +3,7 @@
 
 	' Intro
 	print "GUESS MY FOUR-DIGIT RANDOM NUMBER."
+	print "THE DIGITS WILL ALL BE UNIQUE."
 	print "I WILL GIVE YOU HINTS:"
 	print "* BULLS: # DIGITS IN RIGHT PLACE."
 	print "* COWS: # DIGITS IN WRONG PLACE."
@@ -13,7 +14,9 @@
 
 	' Get guess
 10	t = t + 1
-	print "YOUR GUESS";
+	goto 13
+12	print "DIGITS IN GUESS MUST BE UNIQUE"
+13	print "YOUR GUESS";
 	input n
 
 	if a(1) > 0 then 20
@@ -21,15 +24,15 @@
 	' Pick random number
 	randomize
 	a(1) = int(9 * rnd(0)) + 1
-12	a(2) = int(9 * rnd(0)) + 1
-	if a(2) = a(1) then 12
-14	a(3) = int(9 * rnd(0)) + 1
+14	a(2) = int(9 * rnd(0)) + 1
+	if a(2) = a(1) then 14
+16	a(3) = int(9 * rnd(0)) + 1
 	if a(3) = a(1) then 14
-	if a(3) = a(2) then 14
-16	a(4) = int(9 * rnd(0)) + 1
-	if a(4) = a(1) then 16
-	if a(4) = a(2) then 16
-	if a(4) = a(3) then 16
+	if a(3) = a(2) then 16
+18	a(4) = int(9 * rnd(0)) + 1
+	if a(4) = a(1) then 18
+	if a(4) = a(2) then 18
+	if a(4) = a(3) then 18
 
 	'Give up?
 20	if n = 0 then 80
@@ -42,6 +45,14 @@
 	g(3) = int(n / 10)
 	n = n - (10 * g(3))
 	g(4) = n
+
+	' Digits in guess have to be unique
+	if g(2) = g(1) then 12
+	if g(3) = g(1) then 12
+	if g(3) = g(2) then 12
+	if g(4) = g(1) then 12
+	if g(4) = g(2) then 12
+	if g(4) = g(3) then 12
 
 	' Count up the bulls and cows
 	b = 0
