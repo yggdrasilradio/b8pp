@@ -1,0 +1,266 @@
+
+	' This version is from the PC-BLUE collection on SIMTEL20, 
+	' ###  and was posted by Magnus Olsson on Usenet in 1992.
+	' All kinds of modifications made by Rick Adams
+
+	' *** Hunt the Wumpus ***
+
+	dim p(5)
+
+	print "INSTRUCTIONS (Y-N)";
+	input i$
+
+	randomize
+
+	if i$ = "N" then 80
+	gosub 375
+
+	' *** Set up cave (dodecahedral node list) ***
+80	dim s(20, 3)
+	for j = 1 to 20
+		for k = 1 to 3
+			read s(j, k)
+		next k
+	next j
+
+	data 2, 5, 8, 1, 3, 10, 2, 4, 12, 3, 5, 14, 1, 4, 6
+	data 5, 7, 15, 6, 8, 17, 1, 7, 9, 8, 10, 18, 2, 9, 11
+	data 10, 12, 19, 3, 11, 13, 12, 14, 20, 4, 13, 15, 6, 14, 16
+	data 15, 17, 20, 7,16, 18, 9, 17, 19, 11, 18, 20, 13, 16, 19
+
+	def fna(x) = int(20 * rnd(1)) + 1
+	def fnb(x) = int(3 * rnd(1)) + 1
+	def fnc(x) = int(4 * rnd(1)) + 1
+
+	' *** Locate l array items ***
+	' *** 1-you, 2-wumpus, 3&4-pits, 5&6-bats ***
+	dim l(6)
+	dim m(6)
+170	for j = 1 to 6
+		l(j) = fna(0)
+		m(j) = l(j)
+	next j
+
+	' *** Check for crossovers (ie l(1)=l(2), etc) ***
+	for j = 1 to 6
+		for k = 1 to 6
+			if j = k then 215
+			if l(j) = l(k) then 170
+215		next k
+	next j
+
+	' *** Set no. of arrows ***
+230	a = 5
+	l = l(1)
+
+	' *** Run the game ***
+	print "HUNT THE WUMPUS"
+
+	' *** Hazard warning and location ***
+255	gosub 585
+
+	' *** move or shoot ***
+	gosub 675
+	on o goto 280, 300
+
+	' *** Shoot ***
+280	gosub 715
+	if f = 0 then 255
+	goto 310
+
+	' *** Move ***
+300	gosub 975
+	if f = 0 then 255
+310	if f > 0 then 335
+
+	' *** Lose ***
+	print "HA HA HA - YOU LOSE!"
+	goto 340
+
+	' *** Move ***
+335	print "HEE HEE HEE - THE WUMPUS'LL GET YOU NEXT TIME!!"
+340	for j = 1 to 6
+		l(j) = m(j)
+	next j
+	print "SAME SETUP (Y-N)";
+	input i$
+	if i$ <> "Y" then 170
+	goto 230
+
+	' *** Instructions ***
+375	print "WELCOME TO 'HUNT THE WUMPUS'"
+	print "  THE WUMPUS LIVES IN A CAVE OF 20 ROOMS. EACH ROOM"
+	print "HAS 3 TUNNELS LEADING TO OTHER ROOMS. (LOOK AT A"
+	print "DODECAHEDRON TO SEE HOW THIS WORKS-IF YOU DON'T KNOW"
+	print "WHAT A DODECAHEDRON IS, ASK SOMEONE)"
+	print
+	print "     HAZARDS:"
+	print " BOTTOMLESS PITS - TWO ROOMS HAVE BOTTOMLESS PITS IN THEM"
+	print "     IF YOU GO THERE, YOU FALL INTO THE PIT (& LOSE!)"
+	print " SUPER BATS - TWO OTHER ROOMS HAVE SUPER BATS. IF YOU"
+	print "     GO THERE, A BAT GRABS YOU AND TAKES YOU TO SOME OTHER"
+	print "     ROOM AT RANDOM. (WHICH MAY BE TROUBLESOME)"
+	print "TYPE RETURN FOR MORE";
+	input s$
+	print
+	print "     WUMPUS:"
+	print " THE WUMPUS IS NOT BOTHERED BY HAZARDS (HE HAS SUCKER"
+	print " FEET AND IS TOO BIG FOR A BAT TO LIFT).  USUALLY"
+	print " HE IS ASLEEP.  TWO THINGS WAKE HIM UP: YOU SHOOTING"
+	print " AND/OR YOU ENTERING HIS ROOM."
+	print "     IF THE WUMPUS WAKES HE MOVES (P=.75) ONE ROOM"
+	print " OR STAYS STILL (P=.25).  AFTER THAT, IF HE IS WHERE YOU"
+	print " ARE, HE EATS YOU UP AND YOU LOSE!"
+	print
+	print "     YOU:"
+	print " EACH TURN YOU MAY MOVE OR SHOOT A CROOKED ARROW"
+	print "   MOVING:  YOU CAN MOVE ONE ROOM (THRU ONE TUNNEL)"
+	print "   ARROWS:  YOU HAVE 5 ARROWS.  YOU LOSE WHEN YOU RUN OUT"
+	print "   EACH ARROW CAN GO FROM 1 TO 5 ROOMS. YOU AIM BY TELLING"
+	print "   THE COMPUTER THE ROOM#S YOU WANT THE ARROW TO GO TO."
+	print "   IF THE ARROW CAN'T GO THAT WAY (IF NO TUNNEL) IT MOVES"
+	print "   AT RANDOM TO THE NEXT ROOM."
+	print "     IF THE ARROW HITS THE WUMPUS, YOU WIN."
+	print "     IF THE ARROW HITS YOU, YOU LOSE."
+	print "TYPE RETURN FOR MORE";
+	input s$
+	print
+	print "    WARNINGS:"
+	print "     WHEN YOU ARE ONE ROOM AWAY FROM A WUMPUS OR HAZARD,"
+	print "     THE COMPUTER SAYS:"
+	print " WUMPUS:  'I SMELL A WUMPUS'"
+	print " BAT   :  'BATS NEARBY'"
+	print " PIT   :  'I FEEL A DRAFT'"
+	print
+	return
+
+	' *** Print location & hazard warnings ***
+585	print
+	for j = 2 to 6
+		for k = 1 to 3
+			if s(l(1), k) <> l(j) then 640
+			on j - 1 goto 615, 625, 625, 635, 635
+615			print "I SMELL A WUMPUS!"
+			goto 640
+625			print "I FEEL A DRAFT"
+			goto 640
+635			print "BATS NEARBY!"
+640		next k
+	next j
+	print "YOU ARE IN ROOM "; l(1)
+	print "TUNNELS LEAD TO "; s(l, 1); s(l, 2); s(l, 3)
+	print
+	return
+
+	' *** Choose option ***
+675	print "SHOOT OR MOVE (S-M)";
+	input i$
+	if i$ <> "s" then 700
+	o = 1
+	return
+700	if i$ <> "m" then 675
+	o = 2
+	return
+
+715	' *** Arrow routine ***
+	f = 0
+
+	' *** Path of arrow ***
+735	print "NO. OF ROOMS (1-5)";
+	input j9
+	if j9 < 1 then 735
+	if j9 > 5 then 735
+	for k = 1 to j9
+760		print "ROOM #";
+		input p(k)
+		if k <= 2 then 790
+		if p(k) <> p(k - 2) then 790
+		print "ARROWS AREN'T THAT CROOKED - TRY ANOTHER ROOM"
+		goto 760
+790	next k
+
+	' *** Shoot arrow ***
+	l = l(1)
+	for k = 1 to j9
+		for k1 = 1 to 3
+			if s(l, k1) = p(k) then 895
+		next k1
+
+		' *** No tunnel for arrow ***
+		l = s(l, fnb(1))
+		goto 900
+840	next k
+	print "MISSED"
+	l = l(1)
+
+	' *** Move wumpus ***
+	gosub 940
+
+	' *** Ammo check ***
+	a = a - 1
+	if a > 0 then 885
+880	f = -1
+885	return
+
+	' *** See if arrow is at l(1) or at l(2)
+895	l = p(k)
+900	if l <> l(2) then 920
+	print "AHA! YOU GOT THE WUMPUS!"
+	f = 1
+	return
+920	if l <> l(1) then 840
+	print "OUCH! ARROW GOT YOU!"
+	goto 880
+
+	' *** Move wumpus routine ***
+940	k = fnc(0)
+	if k = 4 then 955
+	l(2) = s(l(2), k)
+955	if l(2) <> l then 970
+	print "TSK TSK TSK - WUMPUS GOT YOU!"
+	f = -1
+970	return
+
+	' *** Move routine ***
+975	f = 0
+985	print "WHERE TO";
+	input l
+	if l < 1 then 985
+	if l > 20 then 985
+	for k = 1 to 3
+
+		' *** Check if legal move ***
+		if s(l(1), k) = l then 1045
+
+	next k
+	if l = l(1) then 1045
+	print "NOT POSSIBLE -";
+	goto 985
+
+	' *** Check for hazards ***
+1045	l(1) = l
+
+	' *** Wumpus ***
+	if l <> l(2) then 1090
+	print "... OOPS! BUMPED A WUMPUS!"
+
+	' *** Move wumpus ***
+	gosub 940
+	if f = 0 then 1090
+	return
+
+	' *** Pit ***
+1090	if l = l(3) then 1100
+	if l <> l(4) then 1120
+1100	print "YYYYIIIIEEEE . . . FELL IN PIT"
+	f = -1
+	return
+
+	' *** Bats ***
+1120	if l = l(5) then 1130
+	if l <> l(6) then 1145
+1130	print "ZAP--SUPER BAT SNATCH! ELSEWHEREVILLE FOR YOU!"
+	l = fna(1)
+	goto 1045
+1145	return
+	end
