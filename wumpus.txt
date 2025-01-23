@@ -59,7 +59,7 @@
 	' *** Hazard warning and location ***
 255	gosub 585
 
-	' *** move or shoot ***
+	' *** Move or shoot ***
 	gosub 675
 	on o goto 280, 300
 
