@@ -162,8 +162,8 @@
 	o = 2
 	return
 
-715	' *** Arrow routine ***
-	f = 0
+	' *** Arrow routine ***
+715	f = 0
 
 	' *** Path of arrow ***
 735	print "NO. OF ROOMS (1-5)";
