@@ -1,0 +1,63 @@
+
+	' Random number between 1 and 6
+	randomize
+	n = int(rnd(0) * 6) + 1
+
+	' Top of dice face
+	gosub 200
+
+	' Which one to display?
+	on n goto 10, 20, 30, 40, 50, 60
+
+	' One
+10	gosub 100 '   '
+	gosub 102 ' O '
+	gosub 100 '   '
+	goto 65
+
+	' Two
+20	gosub 104 'O  '
+	gosub 100 '   '
+	goto35
+
+	' Three
+30	gosub 104 'O  '
+	gosub 102 ' O '
+35	gosub 101 '  O'
+	goto 65
+
+	' Four
+40	gosub 105 'O O'
+	gosub 100 '   '
+	goto 64
+
+	' Five
+50	gosub 105 'O O'
+	gosub 102 ' O '
+	goto 64
+
+	' Six
+60	gosub 105 'O O'
+	gosub 105 'O O'
+64	gosub 105 'O O'
+65	gosub 200
+	stop
+
+100	print "!       !"
+	return
+
+101	print "!     O !"
+	return
+
+102	print "!   O   !"
+	return
+
+104	print "! O     !"
+	return
+
+105	print "! O   O !"
+	return
+
+	' Bottom of dice face
+200	print "+-------+"
+	return
