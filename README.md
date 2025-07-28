@@ -32,6 +32,7 @@ the corresponding programs after preprocessing:
 * wumpus.txt, wumpus.bas -- Classic "Hunt the Wumpus" game. (TSS8 or OS8 version).
 * monty.txt, monty.bas -- Monty Hall problem simulation. (TSS8 version).
 * dice.txt, dice.bas -- Simulation of rolling a six-sided die. (TSS8 version).
+* tictac.txt, tictac.bas -- Tic Tac Toe (TSS8 or OS8 version)
 
 Example usage: `b8pp < guess.txt > guess.bas`
 
