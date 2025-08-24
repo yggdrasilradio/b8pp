@@ -20,7 +20,7 @@ Don't let the modern look of the source before processing fool you: this is stil
 BASIC8 we know and love from the 60s: you can't get away with any IF/THEN/ELSE or the like.  This is a
 preprocessor that merely massages the source; it is not a compiler.
 
-I've included four demo programs; the .txt files are the original source and the .bas files are
+I've included seven demo programs; the .txt files are the original source and the .bas files are
 the corresponding programs after preprocessing:
 
 * bulls.txt, bulls.bas -- The "Bulls and Cows" game (TSS8 version).
