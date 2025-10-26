@@ -57,6 +57,7 @@
 	print "Your move";
 	input m
 
+	' Randomize after the first input
 	if s > 0 then 12
 		randomize
 
