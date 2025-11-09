@@ -20,7 +20,7 @@ Don't let the modern look of the source before processing fool you: this is stil
 BASIC8 we know and love from the 60s: you can't get away with any IF/THEN/ELSE or the like.  This is a
 preprocessor that merely massages the source; it is not a compiler.
 
-I've included seven demo programs; the .txt files are the original source and the .bas files are
+I've included some demo programs; the .txt files are the original source and the .bas files are
 the corresponding programs after preprocessing:
 
 * bulls.txt, bulls.bas -- The "Bulls and Cows" game (TSS8 version).
@@ -33,6 +33,7 @@ the corresponding programs after preprocessing:
 * monty.txt, monty.bas -- Monty Hall problem simulation. (TSS8 version).
 * dice.txt, dice.bas -- Simulation of rolling a six-sided die. (TSS8 version).
 * tictac.txt, tictac.bas -- Tic Tac Toe (TSS8 or OS8 version)
+* waves.txt, waves.bas -- Display interference patterns (TSS8 or OS8 version)
 
 Example usage: `b8pp < guess.txt > guess.bas`
 
