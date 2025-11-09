@@ -1,0 +1,50 @@
+        dim x(5), y(5)
+
+	' How many?
+10	print "How many waves (1-5)";
+	input n
+	if n < 1 then 10
+	if n > 5 then 10
+
+        ' Generate waves
+        randomize
+        for i = 1 to n
+                x(i) = int(70 * rnd(0)) + 1
+                y(i) = int(20 * rnd(0)) + 1
+        next i
+
+        ' Display interference pattern of all waves averaged together
+        for y = 1 to 20
+                for x = 1 to 70
+                        a = 0
+                        for i = 1 to n
+                                x2 = x - x(i)
+                                y2 = y - y(i)
+                                d = sqr(x2 * x2 + y2 * y2) / 2
+                                a = a + int(4 * sin(d)) + 4 + 1
+                        next i
+			v = int(a / n)
+			gosub 100
+                next x
+		print
+        next y
+	stop
+
+	' Output character
+100	on v goto 101, 102, 103, 104, 105, 106, 107, 108
+101	print " ";
+	return
+102	print " ";
+	return
+103	print ".";
+	return
+104	print ",";
+	return
+105	print ";";
+	return
+106	print "*";
+	return
+107	print "$";
+	return
+108	print "@";
+	return
