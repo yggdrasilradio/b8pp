@@ -20,7 +20,7 @@
                         for i = 1 to n
                                 x2 = x - x(i)
                                 y2 = y - y(i)
-                                d = sqr(x2 * x2 + y2 * y2) / 2
+                                d = sqr(x2^2 + y2^2) / 2
                                 a = a + int(4 * sin(d)) + 4 + 1
                         next i
 			v = int(a / n)
@@ -34,11 +34,11 @@
 100	on v goto 101, 102, 103, 104, 105, 106, 107, 108
 101	print " ";
 	return
-102	print " ";
+102	print ".";
 	return
-103	print ".";
+103	print ",";
 	return
-104	print ",";
+104	print ":";
 	return
 105	print ";";
 	return
