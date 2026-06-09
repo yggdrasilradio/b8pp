@@ -85,6 +85,9 @@
 	if x = 3 then 30	' Player wins?
 	if n = 24 then 40	' Tie game?
 
+	' Make it look like the computer's thinking it over
+	sleep 1
+
 	' Make computer move
 	gosub 200
 
