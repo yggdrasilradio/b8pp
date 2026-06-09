@@ -34,6 +34,7 @@ the corresponding programs after preprocessing:
 * dice.txt, dice.bas -- Simulation of rolling a six-sided die. (TSS8 version).
 * tictac.txt, tictac.bas -- Tic Tac Toe (TSS8 or OS8 version)
 * waves.txt, waves.bas -- Display interference patterns (TSS8 or OS8 version)
+* chomp.txt, chomp.bas -- Classic "Chomp the Poison Cookie" game (TSS8 version)
 
 Example usage: `b8pp < guess.txt > guess.bas`
 

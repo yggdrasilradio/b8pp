@@ -1,0 +1,129 @@
+' CHOMP by Rick Adams
+
+	dim a(9, 9), m(10)
+
+	randomize
+
+	' Intro
+	print "CHOMP--AVOID THE POISON IN THE COOKIE"
+	print
+	print "CHOOSE A SQUARE: EXAMPLE C7 FOR 3RD COLUMN, 7TH ROW."
+	print "EVERY SQUARE TO ITS RIGHT AND BELOW IS EATEN."
+	print "DON'T EAT THE POISON! (P)"
+
+	' Initialize cookie
+10	n = 81
+	for i = 1 to 9
+		for j = 1 to 9
+			a(i, j) = 1
+		next j
+	next i
+
+	' Poison the cookie
+	a(1, 1) = -1
+
+	' Display initial cookie
+20	gosub 1000
+
+	' Input move
+	goto 40
+30	print "ILLEGAL MOVE"
+40	print
+	print "YOUR MOVE";
+	input m$
+	change m$ to m
+
+	' Has to be two characters
+	if m(0) <> 2 then 30
+
+	' First character has to be A through I
+	if m(1) < 65 then 30
+	if m(1) > 73 then 30
+
+	' Second character has to be numeric
+	if m(2) < 49 then 30
+	if m(2) > 57 then 30
+
+	' Row and column of chomp
+	c = m(1) - 65 + 1
+	r = m(2) - 49 + 1
+
+	' Can't chomp thin air
+	if a(r, c) = 0 then 30
+
+	' Chomped on the poison?
+	if a(r, c) < 0 then 100
+
+	' Chomp cookie
+	gosub 500
+
+	' Display remaining cookie
+	gosub 1000
+
+	' Only poison is left?
+70	if n > 1 then 80
+	m$ = "A1"
+	r = 1
+	c = 1
+	goto 85
+
+	' Pick a random place to move
+80	r = int(9 * rnd(0)) + 1
+	c = int(9 * rnd(0)) + 1
+	if a(r, c) <= 0 then 80
+	m(0) = 2
+	m(1) = 65 + c - 1
+	m(2) = 49 + r - 1
+	change m to m$
+
+85	print
+	print "COMPUTER MOVE? "; m$
+
+	' Chomp cookie
+	gosub 500
+
+	' Did player win?
+	if n = 0 then 90
+
+	' Display cookie
+	gosub 1000
+
+	' Next move
+	goto 40
+
+	' Player wins
+90	print
+	print "PLAYER WINS!"
+	stop
+
+	' Computer wins
+100	print
+	print "COMPUTER WINS!"
+	stop
+
+' Chomp cookie
+500	for i = r to 9
+		for j = c to 9
+			if a(i, j) = 0 then 560
+				a(i, j) = 0
+				n = n - 1
+560		next j
+	next i
+	return
+
+' Display cookie
+1000	print
+	print "   A B C D E F G H I" 
+	for i = 1 to 9
+		print i;
+		for j = 1 to 9
+			b$ = "*"
+			if a(i, j) > 0 then 1010
+				b$ = " "
+1010			if a(i, j) >= 0 then 1020
+				b$ = "P"
+1020			print b$; " ";
+		next j
+		print
+	next i
+	return
